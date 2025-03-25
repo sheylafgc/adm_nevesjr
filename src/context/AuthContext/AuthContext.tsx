@@ -105,7 +105,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setUser(null);
       Cookies.remove("NEVESJR_TOKEN");
-      router.push("/");
+      router.push("/auth/Login");
     } catch (error) {
       console.log(error);
       toast.error("An error occurred", {
@@ -127,26 +127,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (token) {
         const { data } = await api.get<UserProps>("/user/profile");
 
-        // if (!data.is_staff) {
-        //   setUser(null);
-        //   Cookies.remove("NEVESJR_TOKEN");
-        //   delete api.defaults.headers.Authorization;
+        if (!data.is_staff) {
+          setUser(null);
+          Cookies.remove("NEVESJR_TOKEN");
+          delete api.defaults.headers.Authorization;
 
-        //   toast.error("Access restricted to administrators", {
-        //     position: "top-right",
-        //     autoClose: 3000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        //     transition: Bounce,
-        //   });
+          toast.error("Access restricted to administrators", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
 
-        //   router.push("/auth/login");
-        //   return;
-        // }
+          router.push("/auth/login");
+          return;
+        }
 
         setUser(data);
         router.push("/");
