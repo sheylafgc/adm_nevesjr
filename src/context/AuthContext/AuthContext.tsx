@@ -35,7 +35,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(true);
   const router = useRouter();
-  const [isStaff, setIsStaff] = useState<boolean>(false);
 
   const token = Cookies.get("NEVESJR_TOKEN");
   useEffect(() => {
@@ -53,19 +52,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
       Cookies.set("NEVESJR_TOKEN", data.access, { expires: 1 });
       getProfile();
 
-      if (isStaff) {
-        toast.success("Login successful", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-      }
       setRefresh(!refresh);
     } catch (error) {
       let errorMessage = "An error occurred.";
@@ -150,7 +136,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         setUser(data);
         router.push("/");
-        setIsStaff(data.is_staff);
       }
     } catch (error) {
       console.error("Failed to fetch user:", error);
