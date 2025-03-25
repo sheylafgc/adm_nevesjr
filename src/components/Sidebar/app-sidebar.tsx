@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { BookOpen, Bot, LayoutDashboard } from "lucide-react";
+import { Handshake, LayoutDashboard, MessageSquareText } from "lucide-react";
 
 import LogoBlack from "@/brand/logoBlack.svg";
 import LogoIconBlack from "@/brand/logoIconBlack.svg";
@@ -31,12 +31,12 @@ const data = {
     {
       title: "Contacts",
       url: "/Contacts",
-      icon: Bot,
+      icon: MessageSquareText,
     },
     {
       title: "Partners",
       url: "/Partners",
-      icon: BookOpen,
+      icon: Handshake,
     },
   ],
 };
@@ -47,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="py-10 flex flex-row justify-between items-center lg:px-2 px-5">
+      <SidebarHeader className="py-10 flex flex-row lg:justify-center justify-between items-center lg:px-2 px-5">
         <Link href={"/"}>
           <Image
             src={isCollapsed ? LogoIconBlack : LogoBlack}

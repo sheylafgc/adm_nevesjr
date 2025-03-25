@@ -36,20 +36,18 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Input } from "../ui/input";
-import { Calendar } from "../ui/calendar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export default function DataTable<TData, TValue>({
+export default function PartnerDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [pageIndex, setPageIndex] = useState(0);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
 
   const table = useReactTable({
@@ -78,19 +76,8 @@ export default function DataTable<TData, TValue>({
 
   const totalPages = table.getPageCount();
 
-  const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date);
-    if (date) {
-      const formattedDate = date.toISOString().split("T")[0];
-      table.getColumn("date")?.setFilterValue(formattedDate);
-    } else {
-      table.getColumn("date")?.setFilterValue("");
-    }
-  };
-
   const clearFilters = () => {
     setColumnFilters([]);
-    setSelectedDate(undefined);
     table.resetColumnFilters();
   };
 
@@ -111,36 +98,45 @@ export default function DataTable<TData, TValue>({
               </DialogDescription>
             </DialogHeader>
             <Input
-              placeholder="Filter origin..."
+              placeholder="Filter by email"
               value={
-                (table.getColumn("from_route")?.getFilterValue() as string) ??
-                ""
+                (table.getColumn("email")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table
-                  .getColumn("from_route")
-                  ?.setFilterValue(event.target.value)
+                table.getColumn("email")?.setFilterValue(event.target.value)
               }
               className="border"
             />
             <Input
-              placeholder="Filter destination..."
+              placeholder="Filter by name"
               value={
-                (table.getColumn("to_route")?.getFilterValue() as string) ?? ""
+                (table.getColumn("name")?.getFilterValue() as string) ?? ""
               }
               onChange={(event) =>
-                table.getColumn("to_route")?.setFilterValue(event.target.value)
+                table.getColumn("name")?.setFilterValue(event.target.value)
               }
               className="border"
             />
-            <div className="flex flex-col justify-center lg:items-start items-center gap-2">
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={handleDateSelect}
-                className="rounded-md border"
-              />
-            </div>
+            <Input
+              placeholder="Filter by phone number"
+              value={
+                (table.getColumn("phone")?.getFilterValue() as string) ?? ""
+              }
+              onChange={(event) =>
+                table.getColumn("phone")?.setFilterValue(event.target.value)
+              }
+              className="border"
+            />
+            <Input
+              placeholder="Filter by car model"
+              value={
+                (table.getColumn("car_model")?.getFilterValue() as string) ?? ""
+              }
+              onChange={(event) =>
+                table.getColumn("car_model")?.setFilterValue(event.target.value)
+              }
+              className="border"
+            />
             <DialogFooter className="lg:gap-0 md:gap-0 gap-2">
               <Button onClick={clearFilters}>Clear Filters</Button>
               <Button
@@ -232,11 +228,9 @@ export default function DataTable<TData, TValue>({
             src={NoDataCar}
             width={150}
             height={150}
-            alt="No Bookings Image"
+            alt="No Contact Image"
           />
-          <p className="text-gray2 text-xs font-bold">
-            You don’t have any scheduled trips.
-          </p>
+          <p className="text-gray2 text-xs font-bold">No contacts available</p>
         </div>
       )}
     </div>

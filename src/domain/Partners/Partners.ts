@@ -1,17 +1,18 @@
 import { api } from "@/api/api";
 import Cookies from "js-cookie";
 
-export type ContactsProps = {
+export type PartnersProps = {
   id: number;
   name: string;
   email: string;
-  message: string;
+  phone: string;
+  car_model: string;
 };
 const token = Cookies.get("NEVESJR_TOKEN");
 
-export async function getContacts() {
+export async function getPartners() {
   try {
-    const { data } = await api.get<ContactsProps[]>("/contact", {
+    const { data } = await api.get<PartnersProps[]>("/be-partner", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
