@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { BookingProps } from "@/domain/Bookings/Bookings";
 import TripDetailsDialog from "../TripDetailsDialog/TripDetailsDialog";
+import Link from "next/link";
 
 interface ActionCellProps {
   booking: BookingProps;
@@ -46,6 +47,11 @@ export default function ActionsCell({ booking }: ActionCellProps) {
         <DropdownMenuContent align="end" className="space-y-1">
           <DropdownMenuLabel>Options</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <Link href={`https://wa.me/${booking.phone_number}`}>
+              Send message on whatsapp
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem onSelect={() => setIsDetailDialogOpen(true)}>
             Trip details
           </DropdownMenuItem>
