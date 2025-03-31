@@ -11,5 +11,5 @@ export default function UserBookingsClient() {
     return <div>No user</div>;
   }
 
-  return <Internal userId={user.id} />;
+  return <Internal />;
 }

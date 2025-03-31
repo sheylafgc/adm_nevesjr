@@ -4,24 +4,24 @@ import DataTable from "@/components/DataTable/DataTable";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  getCanceledUserBookings,
-  getFutureUserBookings,
-  getPastUserBookings,
+  getFutureAdminBookings,
+  getPastAdminBookings,
+  getCanceledAdminBookings,
 } from "@/domain/Bookings/Bookings";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Internal({ userId }: { userId: string }) {
+export default function Internal() {
   const { data: pastBookings } = useQuery({
-    queryKey: ["futureUserBookings"],
-    queryFn: () => getPastUserBookings(userId),
+    queryKey: ["futureAdminBookings"],
+    queryFn: getPastAdminBookings,
   });
   const { data: futureBookings } = useQuery({
-    queryKey: ["pastUserBookings"],
-    queryFn: () => getFutureUserBookings(userId),
+    queryKey: ["pastAdminBookings"],
+    queryFn: getFutureAdminBookings,
   });
   const { data: canceledBookings } = useQuery({
-    queryKey: ["canceledUserBookings"],
-    queryFn: () => getCanceledUserBookings(userId),
+    queryKey: ["canceledAdminBookings"],
+    queryFn: getCanceledAdminBookings,
   });
 
   return (

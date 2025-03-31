@@ -28,6 +28,10 @@ export function HourHeader() {
   return "Hour";
 }
 
+export function EmailHeader() {
+  return "Email";
+}
+
 export function PriceHeader() {
   return "Price";
 }

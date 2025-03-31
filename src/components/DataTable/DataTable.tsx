@@ -111,6 +111,16 @@ export default function DataTable<TData, TValue>({
               </DialogDescription>
             </DialogHeader>
             <Input
+              placeholder="Filter email..."
+              value={
+                (table.getColumn("email")?.getFilterValue() as string) ?? ""
+              }
+              onChange={(event) =>
+                table.getColumn("email")?.setFilterValue(event.target.value)
+              }
+              className="border"
+            />
+            <Input
               placeholder="Filter origin..."
               value={
                 (table.getColumn("from_route")?.getFilterValue() as string) ??

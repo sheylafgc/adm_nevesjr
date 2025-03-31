@@ -28,22 +28,20 @@ export type BookingProps = {
   payment_intent_id: string;
   payment_status: "approved" | "canceled";
   payment_brand: string;
+  booking_status: "upcoming" | "past" | "canceled";
   booking_date: Date;
   user: number;
   vehicle: number;
 };
 const token = Cookies.get("NEVESJR_TOKEN");
 
-const getFutureUserBookings = async (userId: string) => {
+const getFutureAdminBookings = async () => {
   try {
-    const { data } = await api.get<BookingProps[]>(
-      `/booking/future/user/${userId}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await api.get<BookingProps[]>(`/booking/future/admin/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   } catch (error) {
     console.error("Erro ao obter as reservas do usuário:", error);
@@ -51,16 +49,13 @@ const getFutureUserBookings = async (userId: string) => {
   }
 };
 
-const getPastUserBookings = async (userId: string) => {
+const getPastAdminBookings = async () => {
   try {
-    const { data } = await api.get<BookingProps[]>(
-      `/booking/past/user/${userId}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await api.get<BookingProps[]>(`/booking/past/admin/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   } catch (error) {
     console.error("Erro ao obter as reservas do usuário:", error);
@@ -68,16 +63,13 @@ const getPastUserBookings = async (userId: string) => {
   }
 };
 
-const getCanceledUserBookings = async (userId: string) => {
+const getCanceledAdminBookings = async () => {
   try {
-    const { data } = await api.get<BookingProps[]>(
-      `/booking/canceled/user/${userId}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await api.get<BookingProps[]>(`/booking/canceled/admin/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   } catch (error) {
     console.error("Erro ao obter as reservas do usuário:", error);
@@ -87,7 +79,7 @@ const getCanceledUserBookings = async (userId: string) => {
 
 const postCancelBooking = async (bookingId: number) => {
   try {
-    const { data } = await api.post(`/booking/cancel/${bookingId}/`, {
+    const { data } = await api.post(`/booking/cancel/admin/${bookingId}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -99,9 +91,24 @@ const postCancelBooking = async (bookingId: number) => {
   }
 };
 
+const finishTrip = async (bookingId: number) => {
+  try {
+    const { data } = await api.post(`/booking/finish/${bookingId}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Erro ao finalizar a reserva do usuário:", error);
+    throw error;
+  }
+};
+
 export {
-  getFutureUserBookings,
-  getPastUserBookings,
-  getCanceledUserBookings,
+  getFutureAdminBookings,
+  getPastAdminBookings,
+  getCanceledAdminBookings,
   postCancelBooking,
+  finishTrip,
 };

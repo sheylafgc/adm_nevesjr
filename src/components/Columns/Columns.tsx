@@ -8,6 +8,7 @@ import ActionsCell from "../ActionsCell/ActionsCell";
 import Image from "next/image";
 import {
   DateHeader,
+  EmailHeader,
   FromHeader,
   HourHeader,
   InvoiceHeader,
@@ -100,6 +101,10 @@ export const columns: ColumnDef<BookingProps>[] = [
         </div>
       );
     },
+  },
+  {
+    accessorKey: "email",
+    header: () => <EmailHeader />,
   },
   {
     accessorKey: "amount",

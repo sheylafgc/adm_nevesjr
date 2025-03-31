@@ -16,7 +16,7 @@ export type VehicleProps = {
 
 export async function getVehicles() {
   try {
-    const { data } = await api.get<VehicleProps[]>("/vehicle");
+    const { data } = await api.get<VehicleProps[]>("/vehicle/?lang=en");
     return data;
   } catch (error) {
     console.error(error);
