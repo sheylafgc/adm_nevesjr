@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { RiSettings3Line } from "react-icons/ri";
-import InvoiceDownload from "../InvoiceDownload/InvoiceDownload";
+// import InvoiceDownload from "../InvoiceDownload/InvoiceDownload";
 import { format } from "date-fns";
 import ActionsCell from "../ActionsCell/ActionsCell";
 import Image from "next/image";
@@ -11,10 +11,10 @@ import {
   EmailHeader,
   FromHeader,
   HourHeader,
-  InvoiceHeader,
-  PaymentHeader,
-  PaymentStatusHeader,
-  PriceHeader,
+  // InvoiceHeader,
+  // PaymentHeader,
+  // PaymentStatusHeader,
+  // PriceHeader,
   ToHeader,
 } from "../TableHeaders/TableHeaders";
 import { BookingProps } from "@/domain/Bookings/Bookings";
@@ -106,58 +106,58 @@ export const columns: ColumnDef<BookingProps>[] = [
     accessorKey: "email",
     header: () => <EmailHeader />,
   },
-  {
-    accessorKey: "amount",
-    header: () => <PriceHeader />,
-    cell: ({ row }) => {
-      const amount = row.getValue<string>("amount");
-      const price = parseFloat(amount) / 100;
+  // {
+  //   accessorKey: "amount",
+  //   header: () => <PriceHeader />,
+  //   cell: ({ row }) => {
+  //     const amount = row.getValue<string>("amount");
+  //     const price = parseFloat(amount) / 100;
 
-      const formatted = new Intl.NumberFormat("en-GB", {
-        style: "currency",
-        currency: "GBP",
-      }).format(price);
+  //     const formatted = new Intl.NumberFormat("en-GB", {
+  //       style: "currency",
+  //       currency: "GBP",
+  //     }).format(price);
 
-      return <div>{formatted}</div>;
-    },
-  },
-  {
-    accessorKey: "payment_brand",
-    header: () => <PaymentHeader />,
-    cell: ({ row }) => {
-      const payment_brand = row.getValue<string>("payment_brand");
+  //     return <div>{formatted}</div>;
+  //   },
+  // },
+  // {
+  //   accessorKey: "payment_brand",
+  //   header: () => <PaymentHeader />,
+  //   cell: ({ row }) => {
+  //     const payment_brand = row.getValue<string>("payment_brand");
 
-      return <div className="capitalize">{payment_brand}</div>;
-    },
-  },
-  {
-    accessorKey: "payment_status",
-    header: () => <PaymentStatusHeader />,
-    cell: ({ row }) => {
-      const payment_status = row.getValue<string>("payment_status");
+  //     return <div className="capitalize">{payment_brand}</div>;
+  //   },
+  // },
+  // {
+  //   accessorKey: "payment_status",
+  //   header: () => <PaymentStatusHeader />,
+  //   cell: ({ row }) => {
+  //     const payment_status = row.getValue<string>("payment_status");
 
-      return (
-        <div
-          className={`capitalize ${
-            payment_status === "approved" ? "text-green-900" : "text-red-900"
-          }`}
-        >
-          {payment_status}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "payment_intent_id",
-    header: () => <InvoiceHeader />,
-    cell: ({ row }) => {
-      return (
-        <InvoiceDownload
-          payment_intent_id={row.getValue<string>("payment_intent_id")}
-        />
-      );
-    },
-  },
+  //     return (
+  //       <div
+  //         className={`capitalize ${
+  //           payment_status === "approved" ? "text-green-900" : "text-red-900"
+  //         }`}
+  //       >
+  //         {payment_status}
+  //       </div>
+  //     );
+  //   },
+  // },
+  // {
+  //   accessorKey: "payment_intent_id",
+  //   header: () => <InvoiceHeader />,
+  //   cell: ({ row }) => {
+  //     return (
+  //       <InvoiceDownload
+  //         payment_intent_id={row.getValue<string>("payment_intent_id")}
+  //       />
+  //     );
+  //   },
+  // },
   {
     id: "actions",
     enableHiding: false,

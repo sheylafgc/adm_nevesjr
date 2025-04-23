@@ -94,7 +94,7 @@ export default function ActionsCell({ booking }: ActionCellProps) {
             <span>Complete Trip</span>
           </DropdownMenuItem>
 
-          {booking.payment_status === "approved" && (
+          {booking.booking_status !== "canceled" && (
             <DropdownMenuItem
               onSelect={() => setIsCanceledDialogOpen(true)}
               className="px-2 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-white transition-colors duration-150 text-sm"
