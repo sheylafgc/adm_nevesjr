@@ -22,6 +22,7 @@ import { BookingProps } from "@/domain/Bookings/Bookings";
 import TripDetailsDialog from "../TripDetailsDialog/TripDetailsDialog";
 import Link from "next/link";
 import FinishTripDialog from "../FinishTripDialog/FinishTripDialog";
+import ApproveTripDialog from "../ApproveTripDialog/ApproveTripDialog";
 
 interface ActionCellProps {
   booking: BookingProps;
@@ -31,6 +32,7 @@ export default function ActionsCell({ booking }: ActionCellProps) {
   const [isCanceledDialogOpen, setIsCanceledDialogOpen] = useState(false);
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
   const [isFinishDialogOpen, setIsFinishDialogOpen] = useState(false);
+  const [isApproveDialogOpen, setIsApproveDialogOpen] = useState(false);
 
   return (
     <>
@@ -50,6 +52,12 @@ export default function ActionsCell({ booking }: ActionCellProps) {
         booking_id={booking.id}
         isOpen={isFinishDialogOpen}
         onOpenChange={setIsFinishDialogOpen}
+      />
+
+      <ApproveTripDialog
+        booking_id={booking.id}
+        isOpen={isApproveDialogOpen}
+        onOpenChange={setIsApproveDialogOpen}
       />
 
       <DropdownMenu>
@@ -85,22 +93,31 @@ export default function ActionsCell({ booking }: ActionCellProps) {
               <span>Contact via WhatsApp</span>
             </Link>
           </DropdownMenuItem>
-
-          <DropdownMenuItem
-            onSelect={() => setIsFinishDialogOpen(true)}
-            className="px-2 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white transition-colors duration-150"
-          >
-            <CheckCircle className="mr-2 h-4 w-4" />
-            <span>Complete Trip</span>
-          </DropdownMenuItem>
-
-          {booking.booking_status !== "canceled" && (
+          {booking.booking_status === "upcoming" && (
+            <>
+              <DropdownMenuItem
+                onSelect={() => setIsFinishDialogOpen(true)}
+                className="px-2 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white transition-colors duration-150"
+              >
+                <CheckCircle className="mr-2 h-4 w-4" />
+                <span>Complete Trip</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => setIsCanceledDialogOpen(true)}
+                className="px-2 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-white transition-colors duration-150 text-sm"
+              >
+                <XCircle className="mr-2 h-4 w-4" />
+                <span>Cancel Trip</span>
+              </DropdownMenuItem>
+            </>
+          )}
+          {booking.booking_status === "pending" && (
             <DropdownMenuItem
-              onSelect={() => setIsCanceledDialogOpen(true)}
-              className="px-2 py-1.5 rounded-md bg-red-600 hover:bg-red-700 text-white transition-colors duration-150 text-sm"
+              onSelect={() => setIsApproveDialogOpen(true)}
+              className="px-2 py-1.5 rounded-md bg-green-600 hover:bg-green-700 text-white transition-colors duration-150"
             >
-              <XCircle className="mr-2 h-4 w-4" />
-              <span>Cancel Trip</span>
+              <CheckCircle className="mr-2 h-4 w-4" />
+              <span>Approve Trip</span>
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>

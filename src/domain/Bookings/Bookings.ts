@@ -28,7 +28,7 @@ export type BookingProps = {
   payment_intent_id: string;
   payment_status: "approved" | "canceled";
   payment_brand: string;
-  booking_status: "upcoming" | "past" | "canceled";
+  booking_status: "upcoming" | "past" | "canceled" | "pending";
   booking_date: Date;
   user: number;
   vehicle: number;
@@ -77,6 +77,34 @@ const getCanceledAdminBookings = async () => {
   }
 };
 
+const getPendingAdminBookings = async () => {
+  try {
+    const { data } = await api.get<BookingProps[]>(`/booking/pending/admin/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Erro ao obter as reservas do usuário:", error);
+    throw error;
+  }
+};
+
+const approveBooking = async (bookingId: number) => {
+  try {
+    const { data } = await api.post(`/booking/approved/${bookingId}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Erro ao aprovar a reserva do usuário:", error);
+    throw error;
+  }
+};
+
 const postCancelBooking = async (bookingId: number) => {
   try {
     const { data } = await api.post(`/booking/cancel/admin/${bookingId}/`, {
@@ -109,6 +137,8 @@ export {
   getFutureAdminBookings,
   getPastAdminBookings,
   getCanceledAdminBookings,
+  getPendingAdminBookings,
+  approveBooking,
   postCancelBooking,
   finishTrip,
 };

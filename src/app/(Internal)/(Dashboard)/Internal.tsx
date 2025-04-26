@@ -7,6 +7,7 @@ import {
   getFutureAdminBookings,
   getPastAdminBookings,
   getCanceledAdminBookings,
+  getPendingAdminBookings,
 } from "@/domain/Bookings/Bookings";
 import { useQuery } from "@tanstack/react-query";
 
@@ -23,6 +24,10 @@ export default function Internal() {
     queryKey: ["canceledAdminBookings"],
     queryFn: getCanceledAdminBookings,
   });
+  const { data: pendingBookings } = useQuery({
+    queryKey: ["pendingAdminBookings"],
+    queryFn: getPendingAdminBookings,
+  });
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
@@ -32,6 +37,7 @@ export default function Internal() {
             <TabsTrigger value="Upcoming">Upcoming</TabsTrigger>
             <TabsTrigger value="Past">Past</TabsTrigger>
             <TabsTrigger value="Canceled">Canceled</TabsTrigger>
+            <TabsTrigger value="Pending">Pending</TabsTrigger>
           </TabsList>
           <TabsContent value="Upcoming">
             <div className="container mx-auto">
@@ -46,6 +52,11 @@ export default function Internal() {
           <TabsContent value="Canceled">
             <div className="container mx-auto">
               <DataTable columns={columns} data={canceledBookings ?? []} />
+            </div>
+          </TabsContent>
+          <TabsContent value="Pending">
+            <div className="container mx-auto">
+              <DataTable columns={columns} data={pendingBookings ?? []} />
             </div>
           </TabsContent>
         </Tabs>
