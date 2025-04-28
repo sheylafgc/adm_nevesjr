@@ -32,7 +32,7 @@ export default function Internal() {
   return (
     <div className="w-full flex flex-col justify-center items-center">
       <div className="lg:w-[80%] w-[90%] flex flex-col justify-center items-center py-32">
-        <Tabs defaultValue="Upcoming" className="w-full ">
+        <Tabs defaultValue="Pending" className="w-full ">
           <TabsList className="my-4 border-b">
             <TabsTrigger value="Pending">Pending</TabsTrigger>
             <TabsTrigger value="Upcoming">Upcoming</TabsTrigger>
