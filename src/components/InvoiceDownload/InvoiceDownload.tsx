@@ -15,7 +15,7 @@ export default function InvoiceDownload({
 }: InvoiceDownloadProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const token = Cookies.get("NEVESJR_TOKEN");
+  const token = Cookies.get("NEVESJR_TOKEN_ADMIN");
 
   const handleDownload = async () => {
     setLoading(true);

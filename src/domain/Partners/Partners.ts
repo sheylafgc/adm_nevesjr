@@ -8,7 +8,7 @@ export type PartnersProps = {
   phone: string;
   car_model: string;
 };
-const token = Cookies.get("NEVESJR_TOKEN");
+const token = Cookies.get("NEVESJR_TOKEN_ADMIN");
 
 export async function getPartners() {
   try {

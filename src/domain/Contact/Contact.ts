@@ -7,7 +7,7 @@ export type ContactsProps = {
   email: string;
   message: string;
 };
-const token = Cookies.get("NEVESJR_TOKEN");
+const token = Cookies.get("NEVESJR_TOKEN_ADMIN");
 
 export async function getContacts() {
   try {

@@ -36,7 +36,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [refresh, setRefresh] = useState<boolean>(true);
   const router = useRouter();
 
-  const token = Cookies.get("NEVESJR_TOKEN");
+  const token = Cookies.get("NEVESJR_TOKEN_ADMIN");
   useEffect(() => {
     if (token) {
       api.defaults.headers.Authorization = `Bearer ${token}`;
@@ -49,7 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const { data } = await api.post("/login/", form);
       api.defaults.headers.Authorization = `Bearer ${data.access}`;
-      Cookies.set("NEVESJR_TOKEN", data.access, { expires: 1 });
+      Cookies.set("NEVESJR_TOKEN_ADMIN", data.access, { expires: 1 });
       getProfile();
 
       setRefresh(!refresh);
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function signOut() {
     try {
       setUser(null);
-      Cookies.remove("NEVESJR_TOKEN");
+      Cookies.remove("NEVESJR_TOKEN_ADMIN");
       router.push("/auth/Login");
     } catch (error) {
       console.log(error);
@@ -115,7 +115,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         if (!data.is_staff) {
           setUser(null);
-          Cookies.remove("NEVESJR_TOKEN");
+          Cookies.remove("NEVESJR_TOKEN_ADMIN");
           delete api.defaults.headers.Authorization;
 
           toast.error("Access restricted to administrators", {

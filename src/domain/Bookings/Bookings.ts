@@ -33,7 +33,7 @@ export type BookingProps = {
   user: number;
   vehicle: number;
 };
-const token = Cookies.get("NEVESJR_TOKEN");
+const token = Cookies.get("NEVESJR_TOKEN_ADMIN");
 
 const getFutureAdminBookings = async () => {
   try {

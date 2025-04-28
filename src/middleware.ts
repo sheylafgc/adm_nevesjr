@@ -17,7 +17,7 @@ const REDIRECT_WHEN_NOT_AUTHENTICATED = "/auth/Login";
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const authToken = request.cookies.get("NEVESJR_TOKEN");
+  const authToken = request.cookies.get("NEVESJR_TOKEN_ADMIN");
 
   const publicRoute = publicRoutes.find((route) => {
     if (typeof route.path === "string") {
