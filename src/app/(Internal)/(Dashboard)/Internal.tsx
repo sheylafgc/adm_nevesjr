@@ -34,10 +34,10 @@ export default function Internal() {
       <div className="lg:w-[80%] w-[90%] flex flex-col justify-center items-center py-32">
         <Tabs defaultValue="Upcoming" className="w-full ">
           <TabsList className="my-4 border-b">
+            <TabsTrigger value="Pending">Pending</TabsTrigger>
             <TabsTrigger value="Upcoming">Upcoming</TabsTrigger>
             <TabsTrigger value="Past">Past</TabsTrigger>
             <TabsTrigger value="Canceled">Canceled</TabsTrigger>
-            <TabsTrigger value="Pending">Pending</TabsTrigger>
           </TabsList>
           <TabsContent value="Upcoming">
             <div className="container mx-auto">
